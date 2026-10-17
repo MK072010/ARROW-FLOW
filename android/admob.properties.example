@@ -1,6 +1,6 @@
 # Copy to admob.properties (git-ignored) for local overrides.
-admobAppId=ca-app-pub-4964591304995043~5576971671
-admobRewardedAdUnitId=ca-app-pub-4964591304995043/2617047673
-admobInterstitialAdUnitId=
-admobTestMode=true
+unityGameId=800402170
+unityRewardedPlacementId=BP_Rewarded_Android
+unityInterstitialPlacementId=
+unityTestMode=true
 appApplicationId=com.example.arrowflow

@@ -18,19 +18,20 @@ import org.json.JSONObject;
  * Hosts the Arrow Flow web game from the app's own assets (https://appassets.androidplatform.net/assets/www/),
  * and wires the secured ads bridge. Ad logic stays outside the game: the page only sees AFNativeAds.
  */
-public class MainActivity extends Activity implements AdMobGateway.Events {
+public class MainActivity extends Activity implements UnityAdsGateway.Events {
     private static final String HOST = "appassets.androidplatform.net";
     private static final String START_URL = "https://" + HOST + "/assets/www/index.html";
 
     private WebView webView;
-    private AdMobGateway ads;
+    private UnityAdsGateway ads;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ads = new AdMobGateway(this, BuildConfig.ADMOB_REWARDED_AD_UNIT_ID,
-                BuildConfig.ADMOB_INTERSTITIAL_AD_UNIT_ID, BuildConfig.ADMOB_TEST_MODE);
+        ads = new UnityAdsGateway(this, BuildConfig.UNITY_GAME_ID, BuildConfig.UNITY_REWARDED_PLACEMENT_ID,
+                BuildConfig.UNITY_INTERSTITIAL_PLACEMENT_ID, BuildConfig.UNITY_TEST_MODE);
+        ads.attach(this);
 
         final WebViewAssetLoader loader = new WebViewAssetLoader.Builder()
                 .setDomain(HOST)

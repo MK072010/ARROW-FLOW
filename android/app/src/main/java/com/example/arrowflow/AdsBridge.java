@@ -17,11 +17,11 @@ import java.util.regex.Pattern;
  */
 final class AdsBridge {
     private static final Pattern TOKEN = Pattern.compile("^[A-Za-z0-9]{6,48}$");
-    private final AdMobGateway gateway;
+    private final UnityAdsGateway gateway;
     private final WeakReference<Activity> activity;
     private final Handler main = new Handler(Looper.getMainLooper());
 
-    AdsBridge(Activity activity, AdMobGateway gateway) {
+    AdsBridge(Activity activity, UnityAdsGateway gateway) {
         this.activity = new WeakReference<>(activity);
         this.gateway = gateway;
     }
@@ -35,8 +35,8 @@ final class AdsBridge {
     public void show(final String kind, final String token) {
         if (kind == null || token == null || !TOKEN.matcher(token).matches()) return;
         final int k;
-        if ("rewarded".equals(kind)) k = AdMobGateway.REWARDED;
-        else if ("interstitial".equals(kind)) k = AdMobGateway.INTERSTITIAL;
+        if ("rewarded".equals(kind)) k = UnityAdsGateway.REWARDED;
+        else if ("interstitial".equals(kind)) k = UnityAdsGateway.INTERSTITIAL;
         else return;
         main.post(new Runnable() { @Override public void run() { gateway.show(activity.get(), k, token); } });
     }

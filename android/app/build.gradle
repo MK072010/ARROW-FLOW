@@ -15,16 +15,16 @@ android {
 
     defaultConfig {
         applicationId adProp('appApplicationId', 'com.example.arrowflow')
-        minSdk 24            // Google Mobile Ads SDK 25.5.0 requires API 24+
+        minSdk 24
         targetSdk 35
         versionCode adProp('appVersionCode', '1').toInteger()      // must increase with every Play Store upload
         versionName adProp('appVersionName', '1.0.0')
 
-        manifestPlaceholders = [admobAppId: adProp('admobAppId', 'ca-app-pub-4964591304995043~5576971671')]
-        buildConfigField 'String', 'ADMOB_REWARDED_AD_UNIT_ID', q(adProp('admobRewardedAdUnitId', 'ca-app-pub-4964591304995043/2617047673'))
-        buildConfigField 'String', 'ADMOB_INTERSTITIAL_AD_UNIT_ID', q(adProp('admobInterstitialAdUnitId', ''))
-        // Test ads are ON by default. Set admobTestMode=false only after entering your own live ad unit IDs.
-        buildConfigField 'boolean', 'ADMOB_TEST_MODE', (adProp('admobTestMode', 'true').equalsIgnoreCase('false') ? 'false' : 'true')
+        buildConfigField 'String', 'UNITY_GAME_ID', q(adProp('unityGameId', '800402170'))
+        buildConfigField 'String', 'UNITY_REWARDED_PLACEMENT_ID', q(adProp('unityRewardedPlacementId', 'BP_Rewarded_Android'))
+        buildConfigField 'String', 'UNITY_INTERSTITIAL_PLACEMENT_ID', q(adProp('unityInterstitialPlacementId', ''))
+        // Test ads are ON by default (safe for development, no revenue). Set unityTestMode=false for the real release build.
+        buildConfigField 'boolean', 'UNITY_TEST_MODE', (adProp('unityTestMode', 'true').equalsIgnoreCase('false') ? 'false' : 'true')
     }
 
     buildFeatures {
@@ -75,8 +75,8 @@ android.sourceSets.main.assets.srcDir(webAssets)
 tasks.matching { it.name.startsWith('merge') && it.name.endsWith('Assets') }.configureEach { dependsOn(syncWeb) }
 
 dependencies {
-    // Google Mobile Ads SDK (AdMob). Official test ad units are used by default.
-    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+    // Unity Ads SDK (Maven Central).
+    implementation 'com.unity3d.ads:unity-ads:4.18.0'
     // Serves the bundled game from a secure https://appassets.androidplatform.net origin instead of file://.
     implementation 'androidx.webkit:webkit:1.12.1'
 }

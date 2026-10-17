@@ -16,9 +16,6 @@
         android:usesCleartextTraffic="false"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="${admobAppId}" />
 
         <activity
             android:name=".MainActivity"
