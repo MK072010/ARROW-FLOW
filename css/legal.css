@@ -1,0 +1,112 @@
+/* ==========================================================================
+   Legal pages (Privacy Policy, Terms & Conditions)
+   Loaded after style.css. The game shell locks scrolling; these pages need it.
+   ========================================================================== */
+body.legal {
+  display: block;
+  height: auto;
+  min-height: 100%;
+  overflow: auto;
+  overscroll-behavior: auto;
+  background: var(--fog);
+  line-height: 1.6;
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+.legal__bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--fog);
+  border-bottom: 1px solid var(--mist);
+}
+.legal__bar-in {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: calc(var(--safe-top) + 10px) 16px 10px;
+}
+.legal__bar .icon-btn { text-decoration: none; color: var(--ink); }
+.legal__bar-title { font-size: 17px; font-weight: 800; letter-spacing: -.005em; }
+
+.legal__main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 20px calc(var(--safe-bottom) + 56px);
+  counter-reset: sec;
+}
+
+.legal__brand { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; color: var(--ink); }
+.legal__brand svg { width: 40px; height: 40px; }
+.legal__brand span { font-size: 13px; letter-spacing: .3em; }
+
+.legal h1 { font-size: 32px; font-weight: 800; letter-spacing: -.02em; line-height: 1.12; }
+.legal__meta { margin-top: 10px; font-size: 14px; color: var(--ink-2); }
+
+.legal__draft {
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: var(--r-m);
+  background: #FBF0D2;
+  border: 1px solid #EBCF8A;
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+.legal__draft strong { display: block; margin-bottom: 2px; }
+
+.legal__intro { margin-top: 22px; font-size: 17px; line-height: 1.55; }
+
+.legal h2 {
+  counter-increment: sec;
+  margin: 34px 0 8px;
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+}
+.legal h2::before { content: counter(sec) ". "; color: var(--tide); }
+
+.legal p { margin-top: 10px; font-size: 16px; }
+.legal ul { margin: 10px 0 0; padding-left: 22px; }
+.legal li { margin-top: 7px; font-size: 16px; padding-left: 2px; }
+.legal li::marker { color: var(--tide); }
+
+.legal a { color: var(--tide); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+
+/* Anything the developer must still supply before publishing */
+mark.todo {
+  padding: 1px 7px;
+  border-radius: 6px;
+  background: #FBE3A1;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: .94em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.legal__foot {
+  margin-top: 44px;
+  padding-top: 22px;
+  border-top: 1px solid var(--mist);
+  display: grid;
+  gap: 10px;
+}
+.legal__foot .btn { text-decoration: none; color: var(--ink); }
+.legal__foot .btn--primary { color: var(--ink); }
+
+@media print {
+  .legal__bar, .legal__foot { display: none; }
+  mark.todo { background: none; border: 1px solid #000; }
+}
+
+.legal code {
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--tide-soft);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: .9em;
+}

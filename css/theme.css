@@ -1,0 +1,80 @@
+/* Arrow Flow: new look (Arrows-puzzle style). Loaded last, overrides the older styles. */
+:root{
+  --bg:#F4F6FB; --paper:#fff; --ink:#1B2033; --ink-2:#5E667D; --ink-3:#9AA1B5; --mist:#DDE2EE;
+  --tide:#5B6CFF; --tide-soft:#ECEEFF; --saffron:#5B6CFF; --danger:#FF4D6A;
+  --r-s:14px; --r-m:20px; --r-l:30px;
+  --font:"Nunito","Avenir Next","Segoe UI",Roboto,system-ui,sans-serif;
+  --shadow:0 6px 20px rgba(40,52,110,.10);
+}
+html,body,.app{background:var(--bg)}
+body{color:var(--ink);font-weight:600}
+
+/* Arrow colours */
+.arrow--c0{--c:#FF5C7A}.arrow--c1{--c:#FF9F43}.arrow--c2{--c:#F5C400}.arrow--c3{--c:#2ED47A}
+.arrow--c4{--c:#19BFD6}.arrow--c5{--c:#5B6CFF}.arrow--c6{--c:#A55BFF}.arrow--c7{--c:#1B2033}
+.arrow__line{stroke-width:7;transition:stroke-width .15s}
+.arrow__head{stroke-width:4}
+.arrow{filter:drop-shadow(0 2px 2px rgba(30,40,90,.15));transition:filter .15s}
+.game .arrow:active .arrow__line{stroke-width:9}
+.dot{fill:#C7CEE2}
+.arrow.is-blocked-tap{--c:var(--danger)!important}
+.arrow.is-hint .arrow__line{stroke:#FFB400;stroke-width:10}
+.arrow.is-hint .arrow__head{fill:#FFB400;stroke:#FFB400}
+
+/* Board */
+.board{background:var(--paper);border:0;border-radius:28px;box-shadow:var(--shadow);padding:14px}
+.board.is-solved{box-shadow:0 0 0 4px #2ED47A55,var(--shadow)}
+
+/* Game screen */
+.game{background:var(--bg)}
+.game__bar{grid-template-columns:48px 1fr 48px;padding:calc(var(--safe-top) + 12px) 14px 4px}
+.game__meta{align-items:center;text-align:center;gap:8px}
+.game__level{font-size:22px;font-weight:900;letter-spacing:.01em}
+.game .progress{width:60%;height:8px;background:#E3E7F3;border-radius:99px}
+.game .progress__fill{background:linear-gradient(90deg,#5B6CFF,#19BFD6);border-radius:99px}
+.game__status{position:absolute;left:0;right:0;top:calc(var(--safe-top) + 62px);flex-direction:row;justify-content:center;gap:12px}
+.game__count{display:none}
+.game__lives{gap:6px}
+.game__life{width:28px;height:28px;filter:drop-shadow(0 2px 3px rgba(255,77,106,.35))}
+.game__life--spent{color:#D4D9E8;filter:none}
+.game__stage{padding-top:34px}
+.icon-btn{background:var(--paper);border-radius:50%;width:46px;height:46px;box-shadow:var(--shadow)}
+
+/* Bottom controls: round buttons */
+.game__controls{justify-content:center;gap:28px;padding:10px 20px calc(var(--safe-bottom) + 22px)}
+.ctrl{flex:none;flex-direction:column;gap:6px;min-height:0;width:76px;background:none;border:0;box-shadow:none;font-size:13px;font-weight:800;color:var(--ink-2)}
+.ctrl .icon{width:56px;height:56px;padding:15px;border-radius:50%;background:var(--paper);box-shadow:var(--shadow);color:var(--tide)}
+.ctrl:active .icon{transform:scale(.92)}
+.ctrl:disabled{opacity:.4}
+
+/* Buttons, cards, tabs */
+.btn,.cta,.ctrl{font-family:inherit}
+.btn--primary,.cta{background:linear-gradient(135deg,#6B7BFF,#4A5CF0);color:#fff;border-radius:999px;box-shadow:0 8px 20px rgba(91,108,255,.38);font-weight:900;letter-spacing:.02em;border:0}
+.btn--quiet{background:var(--paper);border-radius:999px;box-shadow:var(--shadow);border:0}
+.tabbar{background:var(--paper);border:0;border-radius:26px 26px 0 0;box-shadow:0 -6px 24px rgba(40,52,110,.08)}
+.tab{color:var(--ink-3);font-weight:800}
+.tab.is-active,.tab[aria-current="page"]{color:var(--tide)}
+.sheet,.sheet__panel{border-radius:28px 28px 0 0}
+.sheet--center .sheet__panel,.sheet--center{border-radius:28px}
+.home__hero,.dcard,.goal,.row,.group{background:var(--paper);border-radius:var(--r-l);border:0;box-shadow:var(--shadow)}
+.brand__word,.hero__level b{font-weight:900;letter-spacing:.04em}
+.hprog,.aprog{background:#E3E7F3;border-radius:99px}
+.hprog span,.aprog span,.progress__fill{background:linear-gradient(90deg,#5B6CFF,#19BFD6)}
+.toast{background:var(--ink);border-radius:999px}
+
+/* Level tiles */
+.chapter__name{font-size:17px;font-weight:900}
+.chapter__meta{font-weight:800;color:var(--ink-3)}
+.chapter__grid{gap:12px}
+.lvl{border:0;border-radius:20px;font-size:20px;font-weight:900;background:var(--paper);box-shadow:var(--shadow);color:var(--ink)}
+.lvl--done{background:linear-gradient(135deg,#3FDC8A,#19BFD6);color:#fff}
+.lvl__badge{color:#fff}
+.lvl--current{background:linear-gradient(135deg,#6B7BFF,#4A5CF0);color:#fff;box-shadow:0 8px 18px rgba(91,108,255,.4)}
+.lvl--current::after{border-color:#6B7BFF;border-radius:22px}
+.lvl--locked{background:#E7EAF4;box-shadow:none;color:var(--ink-3)}
+
+/* Home fixes */
+.hero,.dcard,.card{background:var(--paper)!important;border:0!important;border-radius:var(--r-l)!important;box-shadow:var(--shadow)!important}
+.hero .cta,.cta{background:linear-gradient(135deg,#6B7BFF,#4A5CF0)!important;color:#fff!important;box-shadow:0 8px 20px rgba(91,108,255,.38)!important}
+.chip{background:var(--paper)!important;border:0!important;border-radius:20px!important;box-shadow:var(--shadow);font-weight:800}
+.tab[aria-current="page"]{background:var(--tide-soft);color:var(--tide);border-radius:18px}

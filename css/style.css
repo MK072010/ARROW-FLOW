@@ -1,0 +1,692 @@
+/* ==========================================================================
+   Arrow Flow: design tokens
+   White surfaces, near-black text and arrows, restrained grey borders.
+   ========================================================================== */
+:root {
+  --fog: #FFFFFF;
+  --paper: #FFFFFF;
+  --ink: #111111;
+  --ink-2: #5B5B5B;
+  --ink-3: #898989;
+  --tide: #2F6BEB;
+  --tide-soft: #EAF1FF;
+  --saffron: #2F6BEB;
+  --mist: #E5E5E5;
+  --danger: #E54857;
+
+  --r-s: 12px;
+  --r-m: 18px;
+  --r-l: 26px;
+
+  --font: "Avenir Next", "Segoe UI Variable Text", "Segoe UI", Roboto, "Helvetica Neue", system-ui, sans-serif;
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  --t: .34s;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--fog);
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+[hidden] { display: none !important; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+:focus-visible { outline: 3px solid var(--tide); outline-offset: 3px; }
+.screen:focus { outline: none; }
+
+.icon {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   App frame: full-bleed on phones, a centred column on larger screens
+   ========================================================================== */
+.app {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  overflow: hidden;
+  overflow: clip;                 /* unlike hidden, clip can never be scrolled by focus or scrollIntoView, so the layout cannot shift */
+  background: var(--fog);
+}
+
+@media (min-width: 600px) and (min-height: 720px) {
+  body { display: grid; place-items: center; background: #FFFFFF; }
+  .app {
+    height: min(900px, calc(100dvh - 48px));
+    border-radius: 36px;
+    border: 1px solid var(--mist);
+  }
+}
+
+.screens { position: absolute; inset: 0; }
+
+/* ==========================================================================
+   Screens and transitions
+   Inactive screens sit offset by --shift (set from JS) and fade out.
+   ========================================================================== */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--fog);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(var(--shift, 0px));
+  transition:
+    opacity var(--t) var(--ease),
+    transform var(--t) var(--ease),
+    visibility 0s linear var(--t);
+}
+
+.screen.is-active {
+  z-index: 2;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity var(--t) var(--ease),
+    transform var(--t) var(--ease),
+    visibility 0s;
+}
+
+[data-motion="reduced"] *,
+[data-motion="reduced"] *::before,
+[data-motion="reduced"] *::after {
+  animation-duration: .01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: .01ms !important;
+  transition-delay: 0s !important;
+}
+
+/* ==========================================================================
+   Shared components
+   ========================================================================== */
+.wordmark {
+  font-weight: 800;
+  letter-spacing: .14em;
+  line-height: 1;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 14px;
+  font-weight: 700;
+  text-align: left;
+  transition: transform .12s var(--ease), background-color .2s, border-color .2s;
+}
+.btn:active { transform: scale(.98); }
+.btn--center { justify-content: center; text-align: center; min-height: 52px; }
+.btn--primary { background: var(--tide); color: #FFFFFF; }
+.btn--quiet { background: var(--paper); border: 1px solid var(--mist); }
+.btn--text { min-height: 48px; color: var(--ink-2); font-weight: 600; font-size: 15px; }
+.btn--danger { background: var(--danger); color: #fff; }
+.btn__text { display: flex; flex-direction: column; gap: 2px; }
+.btn__title { font-size: 17px; line-height: 1.1; }
+.btn__sub { font-size: 12px; font-weight: 600; opacity: .72; }
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 12px;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  transition: transform .12s var(--ease);
+}
+.icon-btn:active { transform: scale(.94); }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(var(--safe-top) + 10px) 14px 8px;
+}
+.topbar__title { font-size: 19px; font-weight: 800; letter-spacing: -.01em; flex: 1; }
+.topbar__meta { font-size: 12px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.progress {
+  height: 4px;
+  border-radius: 99px;
+  background: var(--mist);
+  overflow: hidden;
+}
+.progress__fill {
+  display: block;
+  width: var(--p, 0%);
+  height: 100%;
+  border-radius: inherit;
+  background: var(--tide);
+  transition: width .5s var(--ease);
+}
+
+@media (hover: hover) {
+  .btn--quiet:hover, .icon-btn:hover, .tile:hover, .ctrl:hover { border-color: var(--tide); }
+}
+
+/* ==========================================================================
+   Splash
+   ========================================================================== */
+.splash {
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  background: #FFFFFF;
+  color: var(--ink);
+}
+.splash__mark { width: 88px; height: 88px; }
+.splash__mark path {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.splash__flow { stroke: var(--ink); animation: draw .9s var(--ease) .15s both; }
+.splash__head { stroke: var(--saffron); animation: draw .45s var(--ease) .85s both; }
+.splash__word { font-size: 16px; letter-spacing: .3em; padding-left: .3em; animation: rise .6s var(--ease) 1s both; }
+.splash__load {
+  width: 80px;
+  height: 3px;
+  border-radius: 3px;
+  background: #E5E5E5;
+  overflow: hidden;
+}
+.splash__load span {
+  display: block;
+  height: 100%;
+  background: var(--saffron);
+  transform-origin: left;
+  animation: load 1.9s linear both;
+}
+
+@keyframes draw { from { stroke-dashoffset: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@keyframes load { from { transform: scaleX(0); } }
+
+/* ==========================================================================
+   Home
+   ========================================================================== */
+.home {
+  padding: calc(var(--safe-top) + 20px) 20px calc(var(--safe-bottom) + 20px);
+  gap: 16px;
+}
+
+.home__hero {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.home__hero .board__svg { width: 100%; height: 100%; }
+
+.home__body { display: flex; flex-direction: column; gap: 22px; }
+
+.lockup { display: flex; align-items: center; gap: 18px; }
+.lockup__mark { width: 64px; height: 64px; color: var(--ink); flex: none; }
+.wordmark--stack { font-size: 34px; letter-spacing: .12em; line-height: .98; }
+.wordmark--stack span { display: block; }
+
+.home__actions { display: flex; flex-direction: column; gap: 12px; }
+
+.tile-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 104px;
+  padding: 16px;
+  border-radius: var(--r-m);
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  text-align: left;
+  transition: transform .12s var(--ease), border-color .2s;
+}
+.tile:active { transform: scale(.98); }
+.tile .icon { color: var(--tide); }
+.tile__title { display: block; font-size: 16px; font-weight: 700; }
+.tile__sub { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-2); }
+.tile--compact {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 60px;
+  padding: 0 16px;
+}
+
+/* Short phones: tighten so the hero keeps some room */
+@media (max-height: 680px) {
+  .home { gap: 8px; }
+  .home__body { gap: 14px; }
+  .lockup__mark { width: 48px; height: 48px; }
+  .wordmark--stack { font-size: 28px; }
+  .btn { min-height: 58px; }
+  .tile { min-height: 88px; padding: 12px 14px; gap: 8px; }
+  .tile--compact { min-height: 52px; }
+}
+
+/* ==========================================================================
+   Board art (shared by the home hero and the gameplay board)
+   ========================================================================== */
+.board__svg { display: block; overflow: visible; }
+.dot { fill: var(--mist); }
+
+.arrow { --c: var(--ink); cursor: pointer; }
+.arrow--tide { --c: var(--ink); }
+.arrow--accent { --c: var(--saffron); }
+.arrow__line {
+  fill: none;
+  stroke: var(--c);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.arrow__head {
+  fill: var(--c);
+  stroke: var(--c);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.arrow__hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 30;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: stroke;
+}
+
+/* ==========================================================================
+   Level selection
+   ========================================================================== */
+.levels__scroll {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 4px 16px calc(var(--safe-bottom) + 32px);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.levels__scroll::-webkit-scrollbar { display: none; }
+
+.chapter + .chapter { margin-top: 20px; }
+.chapter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+.chapter__name { font-size: 15px; font-weight: 800; letter-spacing: .02em; }
+.chapter__meta { font-size: 12px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.chapter__grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+
+.lvl {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 13px;
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  transition: transform .12s var(--ease);
+}
+.lvl:active { transform: scale(.94); }
+.lvl .icon { width: 18px; height: 18px; }
+
+.lvl--done { background: var(--tide-soft); border-color: transparent; }
+.lvl__badge { position: absolute; top: 5px; right: 5px; width: 14px; height: 14px; color: var(--tide); stroke-width: 3.2; }
+
+.lvl--current { background: var(--saffron); border-color: transparent; }
+.lvl--current::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 15px;
+  border: 2px solid var(--saffron);
+  animation: ping 2.4s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes ping {
+  0%   { opacity: .9; transform: scale(1); }
+  70%, 100% { opacity: 0; transform: scale(1.22); }
+}
+
+.lvl--locked { background: rgba(202, 213, 219, .45); border-color: transparent; color: var(--ink-3); }
+
+/* ==========================================================================
+   Gameplay
+   ========================================================================== */
+.game__bar {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: calc(var(--safe-top) + 10px) 12px 6px;
+}
+.game__meta { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.game__level { font-size: 17px; font-weight: 800; letter-spacing: -.01em; line-height: 1; }
+.game__count { font-size: 13px; font-weight: 700; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.game__status { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+.game__lives { display: flex; align-items: center; gap: 2px; color: var(--danger); }
+.game__life { width: 18px; height: 18px; color: currentColor; transition: color .18s, transform .18s, opacity .18s; }
+.game__life--spent { color: #D5D9E0; transform: scale(.86); }
+
+.game__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  container-type: size;
+}
+.board {
+  width: min(92cqw, 92cqh, 420px);
+  height: min(92cqw, 92cqh, 420px);
+  padding: 10px;
+  border-radius: 18px;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  animation: settle .5s var(--ease) both;
+}
+.board .board__svg { width: 100%; height: 100%; }
+@keyframes settle { from { opacity: 0; transform: scale(.97); } }
+
+.game__controls {
+  display: flex;
+  gap: 8px;
+  padding: 6px 12px calc(var(--safe-bottom) + 12px);
+}
+.ctrl {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform .12s var(--ease), border-color .2s;
+}
+.ctrl:active { transform: scale(.97); }
+.ctrl .icon { color: var(--tide); }
+
+/* ==========================================================================
+   Level complete
+   ========================================================================== */
+.complete { padding-bottom: calc(var(--safe-bottom) + 20px); }
+.complete__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: calc(var(--safe-top) + 24px) 24px 0;
+  text-align: center;
+}
+.seal { width: 132px; height: 132px; margin-bottom: 20px; overflow: visible; }
+.seal__disc { fill: var(--saffron); transform-origin: center; transform-box: fill-box; }
+.seal__ring {
+  fill: none;
+  stroke: var(--tide);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.seal__check {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+}
+.complete.is-active .seal__disc  { animation: pop .5s var(--ease) both; }
+.complete.is-active .seal__ring  { animation: draw .8s var(--ease) .15s both; }
+.complete.is-active .seal__check { animation: draw .45s var(--ease) .5s both; }
+@keyframes pop { from { opacity: 0; transform: scale(.6); } }
+
+.complete__title { font-size: 32px; font-weight: 800; letter-spacing: -.015em; }
+.complete__sub { font-size: 17px; color: var(--ink-2); }
+.summary { width: 100%; max-width: 300px; margin-top: 26px; }
+.summary p { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.complete__actions { display: grid; gap: 12px; padding: 0 20px; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ==========================================================================
+   Settings
+   ========================================================================== */
+.settings__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 6px 14px calc(var(--safe-bottom) + 20px);
+}
+.group {
+  border-radius: 16px;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  overflow: hidden;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 14px;
+  text-align: left;
+}
+.row + .row { border-top: 1px solid var(--mist); }
+.row__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.row__title { font-size: 15px; font-weight: 700; }
+.row__sub { font-size: 12px; color: var(--ink-2); }
+.row--danger .row__title { color: var(--danger); }
+
+.switch {
+  position: relative;
+  flex: none;
+  width: 52px;
+  height: 32px;
+  border-radius: 99px;
+  background: var(--mist);
+  transition: background-color .22s;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--paper);
+  transition: transform .26s var(--ease);
+}
+.row[aria-checked="true"] .switch { background: var(--tide); }
+.row[aria-checked="true"] .switch::after { transform: translateX(20px); }
+
+.settings__note { padding: 4px 6px; font-size: 13px; color: var(--ink-2); max-width: 36ch; }
+
+/* ==========================================================================
+   Sheets and toast
+   ========================================================================== */
+.sheet {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear .32s;
+}
+.sheet.is-open { visibility: visible; pointer-events: auto; transition-delay: 0s; }
+
+.sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 34, 48, .46);
+  opacity: 0;
+  transition: opacity .28s;
+}
+.sheet.is-open .sheet__scrim { opacity: 1; }
+
+.sheet__panel {
+  position: relative;
+  width: 100%;
+  padding: 10px 20px calc(var(--safe-bottom) + 20px);
+  border-radius: 28px 28px 0 0;
+  background: var(--paper);
+  transform: translateY(100%);
+  transition: transform .34s var(--ease);
+}
+.sheet.is-open .sheet__panel { transform: none; }
+
+.sheet__grab { display: block; width: 40px; height: 4px; margin: 0 auto 18px; border-radius: 4px; background: var(--mist); }
+.sheet__title { font-size: 24px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 16px; }
+.sheet__note { margin: 12px 0 4px; font-size: 14px; color: var(--ink-2); line-height: 1.45; max-width: 44ch; }
+.sheet__stack { display: grid; gap: 10px; margin-top: 18px; }
+
+.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 18px; }
+.facts dt { font-size: 13px; color: var(--ink-2); }
+.facts dd { margin-top: 4px; font-size: 24px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--safe-bottom) + 96px);
+  z-index: 30;
+  max-width: calc(100% - 40px);
+  padding: 12px 18px;
+  border-radius: 14px;
+  background: var(--ink);
+  color: var(--fog);
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transform: translate(-50%, 10px);
+  pointer-events: none;
+  transition: opacity .22s, transform .28s var(--ease);
+}
+.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* ==========================================================================
+   Playable board
+   ========================================================================== */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+.game .board {
+  overflow: hidden;                      /* arrows slide out past the board edge and are cut cleanly */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.game .board .board__svg { overflow: hidden; }
+.game .arrow { outline: none; }
+.game .arrow__hit { stroke-width: 36; }  /* generous touch target; still narrower than one cell (40) */
+.game .arrow:focus-visible .arrow__line { stroke-width: 9; }
+.game .arrow:focus-visible .arrow__head { stroke-width: 5; }
+.arrow.is-leaving { pointer-events: none; }
+/* Blocked feedback: colour (so it still reads with motion reduced) plus a small bump (see render.js). */
+.arrow.is-blocked-by { --c: var(--ink); }
+.arrow.is-blocked-by .arrow__line { animation: blocked-pulse .65s ease-in-out; }
+.arrow.is-blocked-tap { --c: var(--danger); opacity: .85; }
+@keyframes blocked-pulse { 50% { stroke-width: 8.5; } }
+
+/* Hint: saffron colour (kept when motion is reduced) plus a gentle pulse. */
+.arrow.is-hint { --c: var(--tide); }
+.arrow.is-hint .arrow__line { stroke-width: 8; animation: hint-pulse 1s ease-in-out 3; }
+.arrow.is-hint .arrow__head { animation: hint-glow 1s ease-in-out 3; }
+@keyframes hint-pulse { 50% { stroke-width: 11; } }
+@keyframes hint-glow { 50% { stroke-width: 6; } }
+
+/* Undo: the restored arrow fades back in. */
+.arrow.is-restored { animation: restore-in .4s var(--ease); }
+@keyframes restore-in { from { opacity: 0; } }
+
+/* Level cleared: the empty board gives one soft pulse before the complete screen. */
+.board.is-solved { animation: solved-pulse .6s var(--ease); }
+@keyframes solved-pulse { 40% { transform: scale(1.025); } }
+
+/* Greyed-out (not disabled) so a tap on Undo can still explain that there is nothing to undo. */
+.ctrl.is-off { opacity: .55; }
+.ctrl:active { transition-duration: .06s; }

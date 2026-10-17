@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en" data-motion="full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF">
+  <meta name="color-scheme" content="light">
+  <title>Arrow Flow</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/onboarding.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/me.css">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/mockup.css?v=3">
+</head>
+<body>
+
+<!-- Icon sprite: every icon in the UI is drawn here, no emoji, no external files. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-levels" viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.8"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.8"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.8"/></symbol>
+  <symbol id="i-daily" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="3"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></symbol>
+  <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5" width="3.6" height="14" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.9" y="5" width="3.6" height="14" rx="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M14.5 5.5 8 12l6.5 6.5"/></symbol>
+  <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 7 4.5 11.5 9 16"/><path d="M5 11.5h8.5a5 5 0 0 1 0 10H10"/></symbol>
+  <symbol id="i-hint" viewBox="0 0 24 24"><path d="M9.5 18h5M10.5 21h3"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5.5" y="10.5" width="13" height="9.5" rx="2.6"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5.5 12.5 4.2 4.2L18.5 8"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></symbol>
+  <symbol id="i-restart" viewBox="0 0 24 24"><path d="M19 12a7 7 0 1 1-2.1-5"/><path d="M19 4.5v4.2h-4.2"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M4.5 11 12 4.5 19.5 11v8a1 1 0 0 1-1 1h-3.5v-5.5h-6V20H5.5a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.8 2.5 5.1 5.6.8-4.05 3.95.95 5.6L12 16.6l-5 2.65.95-5.6L3.9 9.7l5.6-.8z"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 8.7c0 5.1-8.8 11.1-8.8 11.1S3.2 13.8 3.2 8.7A4.7 4.7 0 0 1 12 6.5a4.7 4.7 0 0 1 8.8 2.2Z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9.5" r="5.5"/><path d="m8.8 14 -1.8 6.5 5-2.6 5 2.6-1.8-6.5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.6 2.2c-.8.5-1.2 1-1.2 1.9"/><path d="M12 16.6v.1"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.9v.1"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.5 5.5 6v5.5c0 4 2.7 7 6.5 9 3.8-2 6.5-5 6.5-9V6z"/><path d="m9 12 2.2 2.2L15.2 10"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.8 12S6 6 12 6s9.2 6 9.2 6-3.200 6-9.200 6S2.800 12 2.800 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V19a1.500 1.500 0 0 1-1.500 1.500h-9.500A1.500 1.500 0 0 1 5.500 19V5A1.500 1.500 0 0 1 7 3.500z"/><path d="M14 3.500V8h4M8.500 12.500h7M8.500 16h5"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.500h4V7M7 7l.8 12.500h8.400L17 7M10.200 10.800v5.200M13.800 10.800v5.200"/></symbol>
+  <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 3.500c.5 3-3.500 4.800-3.500 9a3.500 3.500 0 0 0 7 0c0-1.500-.6-2.500-1.400-3.400-.2 1-.7 1.600-1.300 1.800.5-2.700-.3-5.400-.8-7.400z"/></symbol>
+  <!-- Award badges: original marks built from the game's own arrow motif -->
+  <symbol id="aw-first" viewBox="0 0 48 48"><circle cx="24" cy="24" r="17"/><path d="M14 24h17M25.500 17.500 32 24l-6.500 6.500"/></symbol>
+  <symbol id="aw-tier1" viewBox="0 0 48 48"><path d="M24 6.500 38 12v10.500c0 8-5.500 13.500-14 17.500-8.500-4-14-9.500-14-17.500V12z"/><path d="m20 18 6 6-6 6"/></symbol>
+  <symbol id="aw-tier2" viewBox="0 0 48 48"><path d="M24 6.500 38 12v10.500c0 8-5.500 13.500-14 17.500-8.500-4-14-9.500-14-17.500V12z"/><path d="m16.500 18 6 6-6 6M25 18l6 6-6 6"/></symbol>
+  <symbol id="aw-tier3" viewBox="0 0 48 48"><path d="M24 5 40 11v11.500c0 8.500-6 14.500-16 19.500-10-5-16-11-16-19.500V11z"/><path d="m14 18.500 5 5.500-5 5.500M21.500 18.500l5 5.500-5 5.500M29 18.500l5 5.500-5 5.500"/></symbol>
+  <symbol id="aw-daily" viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="29" rx="6"/><path d="M8 19h32M16 6.500v7M32 6.500v7"/><path d="m18.500 28.500 4 4 7.500-8"/></symbol>
+  <symbol id="aw-streak" viewBox="0 0 48 48"><path d="M5 34h7l4-9 5 11 5-17 4 15h3"/><path d="m36 28 6 6-6 6"/></symbol>
+  <symbol id="logo-mark" viewBox="0 0 96 96">
+    <path d="M12 72H36Q54 72 54 54V46Q54 28 72 28H80" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70 14 86 28 70 42" fill="none" style="stroke:var(--mark-head, #F4A81D)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<main class="app" id="app">
+
+  <div id="screens" class="screens">
+
+    <section class="screen splash is-active" data-screen="splash" tabindex="-1" aria-label="Arrow Flow">
+      <span class="blob blob--a"></span><span class="blob blob--b"></span><span class="blob blob--c"></span>
+      <div class="splash__tile"><svg viewBox="0 0 96 96" aria-hidden="true"><rect width="96" height="96" rx="24" fill="#161A2B"/>
+<g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"><path d="M28 44V24M20 32l8-9 8 9" stroke="#2F8BFF"/><path d="M50 28h20M62 20l9 8-9 8" stroke="#2ED47A"/><path d="M28 52v20M20 64l8 9 8-9" stroke="#FF9F43"/><path d="M70 68H50M58 60l-9 8 9 8" stroke="#FF5C9A"/></g></svg></div>
+      <h1 class="splash__title">Arrow Flow</h1>
+      <p class="splash__tag">Connect the Arrows</p>
+      <p class="splash__sub">Solve &bull; Progress &bull; Enjoy</p>
+      <div class="splash__bottom"><p>Loading...</p><div class="splash__load" aria-hidden="true"><span></span></div></div>
+    </section>
+
+    <!-- 2. Onboarding -->
+    <section class="screen onb" data-screen="onboarding" tabindex="-1" aria-label="Welcome">
+      <span class="blob blob--c"></span>
+      <div class="onb__track" id="onb-track">
+        <article class="onb__slide"><h1>Welcome to<br>Arrow Flow</h1><p>A relaxing puzzle game where you guide every arrow safely off the board.</p>
+          <div class="onb__art"><svg viewBox="0 0 200 150"><g fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M30 40h60v40" stroke="#2F8BFF"/><path d="M110 110V50h50" stroke="#2ED47A"/><path d="M30 110h50" stroke="#FF5C7A"/><path d="M150 90v30h-20" stroke="#FF9F43"/></g></svg></div></article>
+        <article class="onb__slide"><h1>Tap to<br>Slide Out</h1><p>Tap an arrow with a clear path and it slides away. A blocked arrow costs a heart, so look before you tap.</p>
+          <div class="onb__art"><svg viewBox="0 0 200 150"><g fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"><path d="M40 75h70M96 61l16 14-16 14" stroke="#A55BFF"/><path d="M140 30v90M126 106l14 16 14-16" stroke="#19BFD6"/></g></svg></div></article>
+        <article class="onb__slide"><h1>Earn Stars &amp;<br>Rewards</h1><p>Clear levels with fewer mistakes to earn up to three stars, and come back every day for a new challenge.</p>
+          <div class="onb__art"><svg viewBox="0 0 200 150"><g fill="#FFC21A" stroke="#F5A300" stroke-width="3" stroke-linejoin="round"><path d="M100 30l12 25 28 4-20 20 5 28-25-14-25 14 5-28-20-20 28-4z"/><path d="M40 70l6 12 13 2-9 9 2 13-12-7-12 7 2-13-9-9 13-2z" transform="scale(.8) translate(5 25)"/><path d="M160 70l6 12 13 2-9 9 2 13-12-7-12 7 2-13-9-9 13-2z" transform="scale(.8) translate(35 25)"/></g></svg></div></article>
+      </div>
+      <div class="onb__dots" id="onb-dots"><i class="on"></i><i></i><i></i></div>
+      <button type="button" class="m-btn" data-action="onb-next" id="onb-btn">Get Started</button>
+      <p class="onb__swipe">Swipe to learn more &rarr;</p>
+    </section>
+
+    <!-- 3. Terms & Privacy -->
+    <section class="screen welcome" data-screen="welcome" tabindex="-1" aria-labelledby="welcome-title">
+      <header class="m-top"><button type="button" class="m-back" data-action="terms-back" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button><h2>Terms &amp; Privacy</h2><span></span></header>
+      <div class="welcome__scroll">
+        <div class="shield"><svg viewBox="0 0 96 96"><path d="M48 8 16 20v24c0 20 14 36 32 44 18-8 32-24 32-44V20z" fill="#3B82F6"/><path d="m34 48 10 10 20-22" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h1 class="welcome__title" id="welcome-title">We care about your privacy</h1>
+        <p class="welcome__lead">By continuing, you agree to our Terms of Service and Privacy Policy. Your game data stays on this device. The game itself has no accounts and no analytics. The Android app shows optional rewarded ads and occasional ads between levels from Google AdMob, which may process device identifiers (see the Privacy Policy).</p>
+        <p class="welcome__update" id="welcome-update" hidden>Our Terms or Privacy Policy have changed since you last accepted them. Please review them to continue.</p>
+        <div class="m-card m-list">
+          <a class="m-row" href="terms/index.html?from=welcome"><svg class="icon"><use href="#i-doc"/></svg><span>Terms of Service</span><svg class="icon go"><use href="#i-chevron"/></svg></a>
+          <a class="m-row" href="privacy-policy/index.html?from=welcome"><svg class="icon"><use href="#i-shield"/></svg><span>Privacy Policy</span><svg class="icon go"><use href="#i-chevron"/></svg></a>
+        </div>
+      </div>
+      <div class="welcome__foot"><button type="button" class="m-btn" data-action="accept-consent">I Agree</button></div>
+    </section>
+
+    <!-- 1c. Interactive tutorial -->
+    <section class="screen tutorial" data-screen="tutorial" tabindex="-1" aria-labelledby="tut-title">
+      <header class="tut__bar">
+        <h2 class="tut__title" id="tut-title">How to play</h2>
+        <button type="button" class="tut__skip" id="tut-skip" data-action="tutorial-skip">Skip tutorial</button>
+      </header>
+      <div class="tut__steps" id="tut-steps" aria-hidden="true"><span></span><span></span><span></span></div>
+
+      <div class="tut__coach" id="tut-coach" aria-live="polite">
+        <h3 class="tut__coach-title" id="tut-coach-title"></h3>
+        <p class="tut__coach-body" id="tut-coach-body"></p>
+      </div>
+
+      <div class="tut__stage">
+        <div class="board" id="tut-board" role="group" aria-label="Tutorial puzzle"></div>
+      </div>
+
+      <div class="tut__done" id="tut-done" aria-hidden="true">
+        <svg class="seal" viewBox="0 0 132 132" aria-hidden="true">
+          <circle class="seal__disc" cx="66" cy="66" r="48"/>
+          <circle class="seal__ring" cx="66" cy="66" r="60" pathLength="1"/>
+          <path class="seal__check" d="M45 68l14 14 28-30" pathLength="1"/>
+        </svg>
+        <h2 class="tut__done-title" id="tut-done-title"></h2>
+        <p class="tut__done-sub" id="tut-done-sub"></p>
+        <button type="button" class="btn btn--primary btn--center tut__done-btn" id="tut-done-btn" data-action="tutorial-continue">Start Level 1</button>
+      </div>
+    </section>
+
+    <!-- 4. Home -->
+    <section class="screen home scenic" data-screen="home" tabindex="-1" aria-label="Home">
+      <div class="hscroll">
+        <header class="m-player">
+          <span class="avatar" id="home-avatar"></span>
+          <div><b id="home-name">Player</b><small id="home-plevel">Level 1</small></div>
+          <button type="button" class="m-gear" data-action="settings" aria-label="Settings"><svg class="icon"><use href="#i-settings"/></svg></button>
+        </header>
+        <div class="m-card m-stats">
+          <div><svg class="bigstar"><use href="#i-star"/></svg><span><small>Total Stars</small><b id="home-stars">0</b></span></div>
+          <div><svg class="crown"><use href="#i-flame"/></svg><span><small>Best Streak</small><b id="home-best">0</b></span></div>
+        </div>
+        <button type="button" class="m-hero m-hero--blue" data-action="play"><span class="m-hero__ico"><svg class="icon"><use href="#i-play"/></svg></span><span><b>Campaign</b><small id="home-camp">1000 Levels</small></span></button>
+        <button type="button" class="m-hero m-hero--green" data-action="daily-play-today"><span class="m-hero__ico"><svg class="icon"><use href="#i-daily"/></svg></span><span><b>Daily Challenge</b><small id="home-daily-sub">Play &amp; Earn Rewards</small></span></button>
+        <div hidden><b id="home-level"></b><span id="home-chapter"></span><span id="play-sub"></span><span id="home-progress"></span><span id="home-fill"></span><span id="home-note"></span><span id="home-date"></span><span id="home-daily-status"></span><span id="home-daily-month"></span><span id="home-daily-label"></span></div>
+      </div>
+    </section>
+
+    <!-- 8. Daily Challenge -->
+    <section class="screen daily scenic" data-screen="daily" tabindex="-1" aria-labelledby="daily-title">
+      <header class="m-top"><button type="button" class="m-back" data-action="go-home" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button><h2 id="daily-title">Daily Challenge</h2><span></span></header>
+      <div class="hscroll">
+        <div class="m-card cal" role="group" aria-label="Challenge calendar">
+          <div class="cal__nav">
+            <button type="button" class="cal__btn" id="cal-prev" data-action="cal-prev" aria-label="Previous month"><svg class="icon"><use href="#i-back"/></svg></button>
+            <p class="cal__title" id="cal-title" aria-live="polite"></p>
+            <button type="button" class="cal__btn" id="cal-next" data-action="cal-next" aria-label="Next month"><svg class="icon"><use href="#i-chevron"/></svg></button>
+          </div>
+          <div class="cal__week" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+          <div class="cal__grid" id="cal-grid"></div>
+        </div>
+        <div class="m-card streak"><svg class="icon flame"><use href="#i-flame"/></svg><span><small>Current Streak</small><b id="daily-streak">0 Days</b></span><svg class="icon gift"><use href="#i-award"/></svg></div>
+        <p class="dhero__month" id="daily-month" hidden></p><p id="daily-count" hidden></p><p id="daily-stars" hidden></p>
+      </div>
+      <div class="daily__foot"><button type="button" class="m-btn" id="daily-play" data-action="daily-play-today"><span id="daily-play-label">Play Today</span></button></div>
+    </section>
+
+    <!-- 5. Campaign levels -->
+    <section class="screen levels scenic" data-screen="levels" tabindex="-1" aria-labelledby="levels-title">
+      <header class="m-top"><button type="button" class="m-back" data-action="go-home" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button><h2 id="levels-title">Campaign</h2><span id="levels-count" class="m-meta"></span></header>
+      <div class="m-tabs" id="levels-tabs" role="tablist"></div>
+      <div class="levels__scroll" id="levels-scroll"><div id="levels-list" class="lvl-grid"></div></div>
+      <p class="m-pill">Complete levels to unlock new challenges!</p>
+    </section>
+
+    <!-- 6. Gameplay -->
+    <section class="screen game" data-screen="game" tabindex="-1" aria-label="Gameplay">
+      <header class="game__bar m-top">
+        <button type="button" class="m-back" data-action="exit-level" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button>
+        <div class="game__meta"><p class="game__level">Level <span id="game-level">1</span></p><small id="game-size">5x5</small><div class="progress" id="game-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="progress__fill"></span></div></div>
+        <button type="button" class="m-back m-pause" data-action="pause" aria-label="Pause"><svg class="icon"><use href="#i-pause"/></svg></button>
+        <div class="game__status"><div class="game__lives" id="game-lives" role="img"></div><p class="game__count" id="game-count"></p></div>
+      </header>
+      <div class="game__stage">
+        <div class="board" id="board" role="group" aria-label="Puzzle board"></div>
+        <p class="sr-only" id="game-live" role="status" aria-live="polite"></p>
+      </div>
+      <footer class="game__controls">
+        <button type="button" class="ctrl" data-action="hint"><span class="ctrl__ico"><svg class="icon"><use href="#i-hint"/></svg><em id="hint-count">3</em></span><span>Hint</span></button>
+        <button type="button" class="ctrl" data-action="undo"><span class="ctrl__ico"><svg class="icon"><use href="#i-undo"/></svg></span><span>Undo</span></button>
+        <button type="button" class="ctrl" data-action="restart"><span class="ctrl__ico"><svg class="icon"><use href="#i-restart"/></svg></span><span>Restart</span></button>
+      </footer>
+    </section>
+
+    <!-- 7. Level complete -->
+    <section class="screen complete scenic" data-screen="complete" tabindex="-1" aria-labelledby="complete-title">
+      <div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="complete__body">
+        <svg class="topstar" viewBox="0 0 24 24"><path d="m12 2.6 2.9 5.9 6.5.95-4.7 4.6 1.1 6.5L12 17.5l-5.8 3.05 1.1-6.5-4.7-4.6 6.5-.95z" fill="#FFC21A" stroke="#F5A300" stroke-width="1" stroke-linejoin="round"/></svg>
+        <div class="m-card done">
+          <h2 class="complete__title" id="complete-title">Level Complete!</h2>
+          <p class="complete__sub" id="complete-sub">Well Done!</p>
+          <div class="stars3" id="complete-stars"></div>
+        </div>
+        <div class="m-card m-stats2"><div><svg class="icon"><use href="#i-restart"/></svg><span><small>Time</small><b id="complete-time">00:00</b></span></div><div><svg class="icon"><use href="#i-undo"/></svg><span><small>Moves</small><b id="complete-moves">0</b></span></div></div>
+        <div class="summary" hidden><div class="progress"><span class="progress__fill" id="complete-fill"></span></div><p id="complete-count"></p></div>
+      </div>
+      <div class="complete__actions">
+        <button type="button" class="m-btn" data-action="next-level" id="complete-next">Next Level</button>
+        <button type="button" class="m-btn m-btn--ghost" data-action="go-home" id="complete-levels">Main Menu</button>
+        <button type="button" hidden id="complete-replay" data-action="replay"></button>
+      </div>
+    </section>
+
+    <!-- 10. Settings -->
+    <section class="screen settings scenic" data-screen="settings" tabindex="-1" aria-labelledby="settings-title">
+      <header class="m-top"><button type="button" class="m-back" data-action="settings-back" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button><h2 id="settings-title">Settings</h2><span></span></header>
+      <div class="settings__scroll">
+        <div class="m-card m-list">
+          <button type="button" class="m-row" role="switch" aria-checked="true" data-action="toggle-setting" data-setting="sound"><svg class="icon"><use href="#i-play"/></svg><span>Sound Effects</span><i class="sw"></i></button>
+          <button type="button" class="m-row" role="switch" aria-checked="true" data-action="toggle-setting" data-setting="music"><svg class="icon"><use href="#i-star"/></svg><span>Music</span><i class="sw"></i></button>
+          <button type="button" class="m-row" role="switch" aria-checked="false" data-action="toggle-setting" data-setting="reduceMotion"><svg class="icon"><use href="#i-eye"/></svg><span>Reduced Motion</span><i class="sw"></i></button>
+          <button type="button" class="m-row" role="switch" aria-checked="true" data-action="toggle-setting" data-setting="vibration"><svg class="icon"><use href="#i-levels"/></svg><span>Vibration</span><i class="sw"></i></button>
+        </div>
+        <div class="m-card m-list">
+          <button type="button" class="m-row" data-action="language"><svg class="icon"><use href="#i-info"/></svg><span>Language</span><em>English</em><svg class="icon go"><use href="#i-chevron"/></svg></button>
+          <button type="button" class="m-row" data-action="open-screen" data-target="help"><svg class="icon"><use href="#i-help"/></svg><span>Help &amp; Support</span><svg class="icon go"><use href="#i-chevron"/></svg></button>
+          <button type="button" class="m-row" data-action="open-screen" data-target="about"><svg class="icon"><use href="#i-info"/></svg><span>About</span><svg class="icon go"><use href="#i-chevron"/></svg></button>
+        </div>
+        <button type="button" class="m-btn m-btn--red" data-action="erase-ask">Reset Game Data</button>
+        <p class="settings__note" id="consent-record"></p><span id="settings-version" hidden></span>
+      </div>
+    </section>
+
+    <!-- 9. Profile -->
+    <section class="screen me scenic" data-screen="me" tabindex="-1" aria-labelledby="me-title">
+      <header class="m-top"><button type="button" class="m-back" data-action="go-home" aria-label="Back"><svg class="icon"><use href="#i-back"/></svg></button><h2 id="me-title">Profile</h2><span></span></header>
+      <div class="hscroll">
+        <div class="m-card m-prof"><span class="avatar avatar--big" id="me-avatar"></span><div><b id="me-name">Player</b><small id="me-plevel">Level 1</small></div><button type="button" class="m-edit" data-action="edit-name">Edit</button></div>
+        <div class="m-pair"><div class="m-card m-stat"><svg class="bigstar"><use href="#i-star"/></svg><b id="me-stars">0</b><small>Total Stars</small></div><div class="m-card m-stat"><svg class="crown"><use href="#i-flame"/></svg><b id="me-best">0</b><small>Best Streak</small></div></div>
+        <button type="button" class="m-card m-ach" data-action="open-screen" data-target="awards"><span class="m-ach__h"><b>Achievements</b><svg class="icon go"><use href="#i-chevron"/></svg></span><span class="m-ach__row" id="me-badges"></span></button>
+        <div class="m-card m-list">
+          <button type="button" class="m-row" data-action="info-progress"><svg class="icon"><use href="#i-levels"/></svg><span>Game Progress</span><svg class="icon go"><use href="#i-chevron"/></svg></button>
+          <button type="button" class="m-row" data-action="info-stats"><svg class="icon"><use href="#i-daily"/></svg><span>Statistics</span><svg class="icon go"><use href="#i-chevron"/></svg></button>
+          <button type="button" class="m-row" data-action="info-saved"><svg class="icon"><use href="#i-shield"/></svg><span>Saved Data</span><svg class="icon go"><use href="#i-chevron"/></svg></button>
+        </div>
+        <div hidden><span id="me-chapter"></span><span id="me-progress"></span><span id="me-fill"></span><span id="me-stat-campaign"></span><span id="me-stat-daily"></span><span id="me-stat-awards"></span><span id="me-awards-sub"></span><span id="me-next-title"></span><span id="me-next-meta"></span><span id="me-next-fill"></span><span id="me-streak"></span></div>
+      </div>
+    </section>
+
+    <!-- 7a. Awards -->
+    <section class="screen sub" data-screen="awards" tabindex="-1" aria-labelledby="awards-title">
+      <header class="topbar">
+        <button type="button" class="icon-btn" data-action="sub-back" aria-label="Back">
+          <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+        </button>
+        <h2 class="topbar__title" id="awards-title">Awards</h2>
+        <p class="topbar__meta" id="awards-count"></p>
+      </header>
+      <div class="subscroll">
+        <div id="awards-list" class="awards"></div>
+        <p class="subnote">Awards are earned by playing and are saved on this device only. They are not checked by any server, and clearing the app&rsquo;s data removes them.</p>
+      </div>
+    </section>
+
+    <!-- 7b. Help -->
+    <section class="screen sub" data-screen="help" tabindex="-1" aria-labelledby="help-title">
+      <header class="topbar">
+        <button type="button" class="icon-btn" data-action="sub-back" aria-label="Back">
+          <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+        </button>
+        <h2 class="topbar__title" id="help-title">Help</h2>
+      </header>
+      <div class="subscroll">
+        <article class="card info">
+          <h3>How arrows exit</h3>
+          <p>Tap an arrow and it slides in the direction it points. If nothing is in its way, it leaves the board. Clear every arrow to finish the puzzle.</p>
+        </article>
+        <article class="card info">
+          <h3>Blocked arrows</h3>
+          <p>An arrow is blocked when another arrow sits in its path. A blocked arrow will not move, and the game tells you which arrow is in the way. Clear the blocking arrow first, then try again.</p>
+        </article>
+        <article class="card info">
+          <h3>Daily Challenges</h3>
+          <p>Every day has one puzzle, chosen from your device&rsquo;s date. Finish it to earn a virtual star. Past days can be replayed from the calendar, but a star is earned once per day.</p>
+        </article>
+        <div class="group">
+          <button type="button" class="row" data-action="reopen-daily-intro">
+            <span class="row__ico"><svg class="icon" aria-hidden="true"><use href="#i-daily"/></svg></span>
+            <span class="row__text"><span class="row__title">Daily Challenge introduction</span><span class="row__sub">Show the welcome message again</span></span>
+            <svg class="icon row__go" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+          <button type="button" class="row" data-action="replay-tutorial">
+            <span class="row__ico"><svg class="icon" aria-hidden="true"><use href="#i-play"/></svg></span>
+            <span class="row__text"><span class="row__title">Replay tutorial</span><span class="row__sub">A quick refresher on how arrows exit</span></span>
+            <svg class="icon row__go" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7c. About -->
+    <section class="screen sub" data-screen="about" tabindex="-1" aria-labelledby="about-title">
+      <header class="topbar">
+        <button type="button" class="icon-btn" data-action="sub-back" aria-label="Back">
+          <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+        </button>
+        <h2 class="topbar__title" id="about-title">About Game</h2>
+      </header>
+      <div class="subscroll">
+        <article class="card about">
+          <svg class="about__mark" aria-hidden="true"><use href="#logo-mark"/></svg>
+          <h3 class="about__word">ARROW FLOW</h3>
+          <p class="about__ver" id="about-version"></p>
+          <p>A calm puzzle about guiding arrows out of each other&rsquo;s way.</p>
+          <p class="about__small" id="about-levels"></p>
+        </article>
+        <p class="subnote">Progress, awards and settings are stored on this device only.</p>
+      </div>
+    </section>
+
+    <!-- 7d. Privacy Rights -->
+    <section class="screen sub" data-screen="rights" tabindex="-1" aria-labelledby="rights-title">
+      <header class="topbar">
+        <button type="button" class="icon-btn" data-action="sub-back" aria-label="Back">
+          <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+        </button>
+        <h2 class="topbar__title" id="rights-title">Privacy Rights</h2>
+      </header>
+      <div class="subscroll">
+        <article class="card info">
+          <h3>What Arrow Flow stores</h3>
+          <p>On this device only: your campaign progress, your Daily Challenge record, your awards, your settings, and a record of which Terms and Privacy Policy version you accepted. The game does not send this to the developer or anyone else.</p>
+        </article>
+        <article class="card info">
+          <h3>See your data</h3>
+          <p>Your progress is shown on the Me, Daily and Awards screens. The acceptance record is under Privacy Preferences.</p>
+        </article>
+        <article class="card info">
+          <h3>Remove your data</h3>
+          <p>Reset progress (Settings) clears your campaign. To remove everything the game has stored, use Privacy Preferences, or clear the app&rsquo;s storage in your device or browser settings.</p>
+        </article>
+        <article class="card info">
+          <h3>Other rights and contact</h3>
+          <p>Rights that apply in your region and contact details are covered in the Privacy Policy. Contact details have not been supplied in this build yet.</p>
+        </article>
+        <div class="group">
+          <a class="row" href="privacy-policy/index.html?from=me#rights">
+            <span class="row__ico"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg></span>
+            <span class="row__text"><span class="row__title">Read the Privacy Policy</span></span>
+            <svg class="icon row__go" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7e. Privacy Preferences -->
+    <section class="screen sub" data-screen="prefs" tabindex="-1" aria-labelledby="prefs-title">
+      <header class="topbar">
+        <button type="button" class="icon-btn" data-action="sub-back" aria-label="Back">
+          <svg class="icon" aria-hidden="true"><use href="#i-back"/></svg>
+        </button>
+        <h2 class="topbar__title" id="prefs-title">Privacy Preferences</h2>
+      </header>
+      <div class="subscroll">
+        <article class="card info">
+          <h3>Acceptance record</h3>
+          <p id="prefs-consent-record">Not recorded yet.</p>
+        </article>
+        <article class="card info">
+          <h3>Ads and tracking</h3>
+          <p>The web version has no advertising, analytics or tracking. The Android app shows ads from Google AdMob. Consent and personalization settings must be configured for the intended audience and release regions. Vibration and reduced motion are in Settings.</p>
+        </article>
+        <div class="group">
+          <button type="button" class="row" data-action="settings">
+            <span class="row__ico"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg></span>
+            <span class="row__text"><span class="row__title">Settings</span></span>
+            <svg class="icon row__go" aria-hidden="true"><use href="#i-chevron"/></svg>
+          </button>
+        </div>
+        <div class="group">
+          <button type="button" class="row row--danger" data-action="erase-ask">
+            <span class="row__ico row__ico--danger"><svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg></span>
+            <span class="row__text"><span class="row__title">Delete all data on this device</span><span class="row__sub">Progress, awards, Daily history, settings and acceptance</span></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Sheets -->
+  <div class="sheet" id="sheet-pause" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+    <div class="sheet__scrim" data-action="resume"></div>
+    <div class="sheet__panel">
+      <span class="sheet__grab" aria-hidden="true"></span>
+      <h2 class="sheet__title" id="pause-title">Paused</h2>
+      <div class="sheet__stack">
+        <button type="button" class="btn btn--primary btn--center" data-action="resume" data-autofocus>Resume</button>
+        <button type="button" class="btn btn--quiet btn--center" data-action="restart">Restart level</button>
+        <button type="button" class="btn btn--quiet btn--center" data-action="exit-level">Back to levels</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet" id="sheet-reset" role="alertdialog" aria-modal="true" aria-labelledby="reset-title" aria-describedby="reset-desc">
+    <div class="sheet__scrim" data-action="close-sheet"></div>
+    <div class="sheet__panel">
+      <span class="sheet__grab" aria-hidden="true"></span>
+      <h2 class="sheet__title" id="reset-title">Reset all progress?</h2>
+      <p class="sheet__note" id="reset-desc">Every level except level 1 will be locked again and your campaign puzzle count restarts. Awards you have already earned, Daily Challenge history and your settings stay as they are. This can't be undone.</p>
+      <div class="sheet__stack">
+        <button type="button" class="btn btn--danger btn--center" data-action="reset-confirm">Reset progress</button>
+        <button type="button" class="btn btn--quiet btn--center" data-action="close-sheet" data-autofocus>Keep progress</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed" id="sheet-hint-ad" role="dialog" aria-modal="true" aria-labelledby="hintad-title" aria-describedby="hintad-desc">
+    <div class="sheet__scrim" data-action="close-sheet"></div>
+    <div class="sheet__panel">
+      <span class="sheet__grab" aria-hidden="true"></span>
+      <h2 class="sheet__title" id="hintad-title">Need another hint?</h2>
+      <p class="sheet__note" id="hintad-desc">Watch a short video ad to get one extra hint for this level. It is optional, and you can keep playing without it.</p>
+      <div class="sheet__stack">
+        <button type="button" class="cta" data-action="hint-ad-watch">Watch ad for 1 hint</button>
+        <button type="button" class="cta cta--soft" data-action="close-sheet" data-autofocus>No thanks</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed" id="sheet-erase" role="alertdialog" aria-modal="true" aria-labelledby="erase-title" aria-describedby="erase-desc">
+    <div class="sheet__scrim" data-action="close-sheet"></div>
+    <div class="sheet__panel">
+      <span class="sheet__grab" aria-hidden="true"></span>
+      <h2 class="sheet__title" id="erase-title">Delete all data?</h2>
+      <p class="sheet__note" id="erase-desc">This removes your progress, awards, Daily Challenge history, settings and your Terms acceptance from this device. The app will restart at the welcome screen. This can't be undone.</p>
+      <div class="sheet__stack">
+        <button type="button" class="cta cta--danger" data-action="erase-confirm">Delete everything</button>
+        <button type="button" class="cta cta--soft" data-action="close-sheet" data-autofocus>Keep my data</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed" id="sheet-newgame" role="alertdialog" aria-modal="true" aria-labelledby="newgame-title" aria-describedby="newgame-desc">
+    <div class="sheet__scrim" data-action="close-sheet"></div>
+    <div class="sheet__panel">
+      <span class="sheet__grab" aria-hidden="true"></span>
+      <h2 class="sheet__title" id="newgame-title">Start a new game?</h2>
+      <p class="sheet__note" id="newgame-desc">Your saved campaign progress will be erased. Earned awards and Daily Challenge history are kept.</p>
+      <div class="sheet__stack">
+        <button type="button" class="cta cta--danger" data-action="newgame-confirm">Erase progress and start over</button>
+        <button type="button" class="cta cta--soft" data-action="close-sheet" data-autofocus>Keep my progress</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed sheet--center" id="sheet-daily-intro" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+    <div class="sheet__scrim" data-action="daily-intro-skip"></div>
+    <div class="sheet__panel">
+      <svg class="intro__art" viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="56" fill="#DDE8FD"/>
+        <path d="M38 36H26v4a14 14 0 0 0 14 14M82 36h12v4a14 14 0 0 1-14 14" fill="none" stroke="#2F6BEB" stroke-width="5" stroke-linecap="round"/>
+        <path d="M38 30h44v22a22 22 0 0 1-44 0z" fill="#0A1A33"/>
+        <rect x="54" y="74" width="12" height="12" fill="#2F6BEB"/>
+        <rect x="42" y="86" width="36" height="8" rx="3" fill="#0A1A33"/>
+        <path d="M60 38.5 63.2 46.5 71.7 46.9 65 52.2 67.3 60.4 60 55.7 52.7 60.4 55 52.2 48.3 46.9 56.8 46.5z" fill="#fff"/>
+      </svg>
+      <h2 class="sheet__title" id="intro-title" style="margin-bottom:8px">Welcome to Daily Challenges</h2>
+      <p class="sheet__note">A new puzzle every day, based on your device&rsquo;s date. Clear every arrow to earn a virtual star for that day. Stars are just for fun and have no cash value. Missed a day? You can replay it from the calendar.</p>
+      <div class="sheet__stack">
+        <button type="button" class="cta" data-action="daily-intro-continue" data-autofocus>Continue</button>
+        <button type="button" class="cta cta--quiet" data-action="daily-intro-skip">Skip</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed sheet--center sheet--game-over" id="sheet-game-over" role="alertdialog" aria-modal="true" aria-labelledby="game-over-title" aria-describedby="game-over-desc">
+    <div class="sheet__panel">
+      <div class="game-over__lives" aria-hidden="true">
+        <svg class="game-over__heart"><use href="#i-heart"/></svg>
+        <svg class="game-over__heart"><use href="#i-heart"/></svg>
+        <svg class="game-over__heart"><use href="#i-heart"/></svg>
+      </div>
+      <h2 class="sheet__title" id="game-over-title">Out of lives</h2>
+      <p class="sheet__note" id="game-over-desc">A blocked arrow costs one heart. Restart the puzzle and look for a clear path before each tap.</p>
+      <div class="sheet__stack">
+        <button type="button" class="cta" data-action="retry-failed-level" data-autofocus>Try again</button>
+        <button type="button" class="cta cta--quiet" data-action="exit-failed-level">Back to levels</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sheet sheet--themed sheet--center" id="sheet-info" role="dialog" aria-modal="true" aria-labelledby="info-title">
+    <div class="sheet__scrim" data-action="close-sheet"></div>
+    <div class="sheet__panel"><h2 class="sheet__title" id="info-title"></h2><div class="sheet__note" id="info-body"></div>
+      <div class="sheet__stack"><button type="button" class="m-btn" data-action="close-sheet" data-autofocus>OK</button></div></div>
+  </div>
+
+  <nav class="tabbar" id="tabbar" aria-label="Main navigation">
+    <button type="button" class="tab" data-tab="home" data-action="tab-main"><svg class="icon"><use href="#i-home"/></svg><span>Home</span></button>
+    <button type="button" class="tab" data-tab="me" data-action="tab-me"><svg class="icon"><use href="#i-profile"/></svg><span>Profile</span></button>
+    <button type="button" class="tab" data-tab="awards" data-action="tab-awards"><svg class="icon"><use href="#i-award"/></svg><span>Awards</span></button>
+    <button type="button" class="tab" data-tab="settings" data-action="tab-settings"><svg class="icon"><use href="#i-settings"/></svg><span>Settings</span></button>
+  </nav>
+
+  <p class="toast" id="toast" role="status" aria-live="polite"></p>
+</main>
+
+<!-- Classic scripts, in dependency order. No modules, so it also runs from file:// and Android WebView assets. -->
+<script src="js/rules.js"></script>
+<script src="data/levels.v1.js?v=3"></script>
+<script src="data/daily.v1.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/levels.js?v=3"></script>
+<script src="js/storage.js?v=3"></script>
+<script src="js/daily.js"></script>
+<script src="js/achievements.js"></script>
+<script src="js/render.js"></script>
+<script src="js/game.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/tutorial.js"></script>
+<script src="js/skin.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

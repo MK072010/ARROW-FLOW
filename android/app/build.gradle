@@ -1,0 +1,82 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Optional local settings (git-ignored). Missing file or empty IDs => ads stay disabled.
+def adProps = new Properties()
+def adFile = rootProject.file('admob.properties')
+if (adFile.exists()) adFile.withInputStream { adProps.load(it) }
+def adProp = { String k, String d -> (adProps.getProperty(k) ?: (project.findProperty(k) ?: d)).toString().trim() }
+def q = { String s -> '"' + s.replace('\\', '\\\\').replace('"', '\\"') + '"' }
+
+android {
+    namespace 'com.example.arrowflow'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId adProp('appApplicationId', 'com.example.arrowflow')
+        minSdk 24            // Google Mobile Ads SDK 25.5.0 requires API 24+
+        targetSdk 35
+        versionCode adProp('appVersionCode', '1').toInteger()      // must increase with every Play Store upload
+        versionName adProp('appVersionName', '1.0.0')
+
+        manifestPlaceholders = [admobAppId: adProp('admobAppId', 'ca-app-pub-4964591304995043~5576971671')]
+        buildConfigField 'String', 'ADMOB_REWARDED_AD_UNIT_ID', q(adProp('admobRewardedAdUnitId', 'ca-app-pub-4964591304995043/2617047673'))
+        buildConfigField 'String', 'ADMOB_INTERSTITIAL_AD_UNIT_ID', q(adProp('admobInterstitialAdUnitId', ''))
+        // Test ads are ON by default. Set admobTestMode=false only after entering your own live ad unit IDs.
+        buildConfigField 'boolean', 'ADMOB_TEST_MODE', (adProp('admobTestMode', 'true').equalsIgnoreCase('false') ? 'false' : 'true')
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    // Release signing: reads keystore.properties (git-ignored, see keystore.properties.example). Without it the release
+    // build is produced UNSIGNED (it will not install); the debug build is always signed with the debug key.
+    def ksProps = new Properties()
+    def ksFile = rootProject.file('keystore.properties')
+    if (ksFile.exists()) ksFile.withInputStream { ksProps.load(it) }
+    def hasKeystore = ksFile.exists() && ksProps.getProperty('storeFile')
+    signingConfigs {
+        if (hasKeystore) {
+            release {
+                storeFile rootProject.file(ksProps.getProperty('storeFile'))
+                storePassword ksProps.getProperty('storePassword')
+                keyAlias ksProps.getProperty('keyAlias')
+                keyPassword ksProps.getProperty('keyPassword')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (hasKeystore) signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+// The web game lives in the repository root (index.html, js/, css/, data/ ...). It is copied (minus dev tools, android/, docs) into the app's assets/www at build time.
+def webAssets = layout.buildDirectory.dir('generated/web-assets')
+def syncWeb = tasks.register('syncWebAssets', Copy) {
+    from(file('../..')) {   // repo root = parent of android/ (module dir is android/app)
+        exclude 'android/**', '.github/**', 'tools/**', '*.md', '*.zip', '**/.DS_Store'
+    }
+    into(webAssets.map { it.dir('www') })
+}
+android.sourceSets.main.assets.srcDir(webAssets)
+tasks.matching { it.name.startsWith('merge') && it.name.endsWith('Assets') }.configureEach { dependsOn(syncWeb) }
+
+dependencies {
+    // Google Mobile Ads SDK (AdMob). Official test ad units are used by default.
+    implementation 'com.google.android.gms:play-services-ads:25.5.0'
+    // Serves the bundled game from a secure https://appassets.androidplatform.net origin instead of file://.
+    implementation 'androidx.webkit:webkit:1.12.1'
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Arrow Flow glyph from proj/assets/icon.svg, scaled into the adaptive-icon safe zone (centre ~66dp of 108dp). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <group android:translateX="7.6" android:translateY="11" android:scaleX="0.179" android:scaleY="0.179">
+        <group android:translateX="96" android:translateY="96" android:scaleX="3.33" android:scaleY="3.33">
+            <path android:pathData="M12,72H36Q54,72 54,54V46Q54,28 72,28H80"
+                android:strokeColor="#E8EDF0" android:strokeWidth="9" android:strokeLineCap="round" android:strokeLineJoin="round" />
+            <path android:pathData="M70,14 86,28 70,42"
+                android:strokeColor="#F4A81D" android:strokeWidth="9" android:strokeLineCap="round" android:strokeLineJoin="round" />
+        </group>
+    </group>
+</vector>

@@ -1,0 +1,4 @@
+// Top-level build file. Android Gradle Plugin 8.7.3 is used here.
+plugins {
+    id 'com.android.application' version '8.7.3' apply false
+}

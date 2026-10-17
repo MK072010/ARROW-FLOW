@@ -1,0 +1,10 @@
+# Real AdMob IDs for your own builds (admob.properties). Never commit a filled-in copy.
+admob.properties
+local.properties
+.gradle/
+build/
+app/build/
+*.jks
+*.keystore
+
+keystore.properties

@@ -1,0 +1,107 @@
+/* Arrow Flow: Me (profile), Awards, Help, About and Privacy screens.
+   Shared white surfaces and black typography. */
+.me, .sub {
+  --navy: #111111;
+  --navy-2: #292929;
+  --blue: #111111;
+  --blue-d: #111111;
+  --sky: #F1F1F1;
+  --ice: #FFFFFF;
+  --line: #E5E5E5;
+  --muted: #5B5B5B;
+  --glow: #777777;
+  background: var(--ice);
+  color: var(--navy);
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+
+/* Children of a scrolling column must keep their height; otherwise overflow:hidden cards would shrink and clip. */
+.me .hscroll > *, .subscroll > * { flex: none; }
+
+/* Grouped rows, light theme */
+.me .group, .sub .group {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px -18px rgba(10, 26, 51, .5);
+}
+.me .row, .sub .row { min-height: 58px; justify-content: flex-start; gap: 10px; color: var(--navy); text-decoration: none; transition: background-color .15s; }
+.me .row + .row, .sub .row + .row { border-top-color: var(--line); }
+.me .row:active, .sub .row:active { background: var(--ice); }
+.me .row__text, .sub .row__text { flex: 1; }
+.me .row__sub, .sub .row__sub { color: var(--muted); }
+.me .row__go, .sub .row__go { width: 20px; height: 20px; color: var(--muted); }
+.row__ico { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 11px; background: var(--sky); color: var(--blue-d); }
+.row__ico .icon { width: 20px; height: 20px; }
+.row__ico--danger { background: #FBE6E3; color: var(--danger); }
+.me .row--danger .row__title, .sub .row--danger .row__title { color: var(--danger); }
+
+/* Profile hero */
+.mehero__chapter { margin-top: 7px; font-size: 18px; font-weight: 800; color: var(--navy); letter-spacing: -.01em; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+.stats > div { padding: 8px 5px; border-radius: 12px; background: #F1F1F1; text-align: center; }
+.stats dt { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.stats dd { margin-top: 2px; font-size: 19px; font-weight: 800; font-variant-numeric: tabular-nums; }
+
+/* Achievements summary card */
+.goal .eyebrow { color: var(--muted); }
+.goal__line { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-top: 6px; }
+.goal__title { font-size: 15px; font-weight: 800; }
+.goal__meta { font-size: 13px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.aprog { height: 5px; margin-top: 8px; border-radius: 99px; background: var(--sky); overflow: hidden; }
+.aprog span { display: block; width: var(--p, 0%); height: 100%; border-radius: inherit; background: var(--blue); transition: width .5s var(--ease); }
+.goal__streak { display: flex; align-items: center; gap: 8px; margin-top: 9px; font-size: 12px; font-weight: 600; color: var(--muted); }
+.goal__streak .icon { width: 18px; height: 18px; color: var(--blue); }
+
+/* Sub screens */
+.sub .icon-btn { background: #fff; border-color: var(--line); color: var(--navy); }
+.sub .topbar__title { color: var(--navy); }
+.sub .topbar__meta { color: var(--muted); }
+.subscroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 14px calc(var(--safe-bottom) + 20px);
+}
+.subnote { padding: 0 8px; font-size: 12px; line-height: 1.5; color: var(--muted); text-align: center; }
+
+.info h3, .about h3 { font-size: 17px; font-weight: 800; }
+.info p { margin-top: 6px; font-size: 14px; line-height: 1.5; color: var(--muted); }
+
+.about { text-align: center; padding: 26px 20px; }
+.about__mark { width: 64px; height: 64px; color: var(--navy); --mark-head: var(--blue); }
+.about__word { margin-top: 10px; font-size: 20px; font-weight: 800; letter-spacing: .24em; padding-left: .24em; }
+.about__ver { margin: 6px 0 12px; font-size: 14px; font-weight: 700; color: var(--blue-d); }
+.about p { font-size: 14px; line-height: 1.5; color: var(--muted); }
+.about .about__small { margin-top: 10px; font-size: 12px; }
+
+/* Awards */
+.awards { display: flex; flex-direction: column; gap: 10px; }
+.award { display: grid; grid-template-columns: 48px 1fr; gap: 11px; align-items: start; padding: 13px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 8px 20px -18px rgba(10, 26, 51, .5); }
+.award__badge { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 15px; background: #E7ECF5; color: #8995AB; }
+.award__badge .icon { width: 29px; height: 29px; stroke-width: 2.6; }
+.award__lock { position: absolute; right: -5px; bottom: -5px; display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 1px solid var(--line); color: var(--muted); }
+.award__lock .icon { width: 12px; height: 12px; stroke-width: 2.6; }
+.award--on .award__badge { background: var(--navy); color: #fff; box-shadow: inset 0 0 0 3px var(--navy-2); }
+.award--on .award__badge .icon { --mark-head: #fff; }
+.award__title { font-size: 16px; font-weight: 800; }
+.award__desc { margin-top: 2px; font-size: 13px; line-height: 1.4; color: var(--muted); }
+.award__status { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 99px; background: #E7ECF5; color: var(--muted); font-size: 12px; font-weight: 700; }
+.award--on .award__status { background: var(--sky); color: var(--blue-d); }
+.award__prog { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.award__prog .aprog { flex: 1; margin-top: 0; height: 6px; }
+.award__count { font-size: 12px; font-weight: 700; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.award__note { margin-top: 6px; font-size: 12px; line-height: 1.4; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .aprog span, .me .row { transition: none; }
+}
+html[data-motion="reduced"] .aprog span,
+html[data-motion="reduced"] .me .row,
+html[data-motion="reduced"] .sub .row { transition: none; }

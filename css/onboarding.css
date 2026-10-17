@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Onboarding: welcome screen, tutorial, and link rows in settings.
+   Uses the tokens and components from style.css. Loaded after it.
+   ========================================================================== */
+
+/* Link rows (settings + welcome) reuse .row, which was written for buttons */
+a.row { color: inherit; text-decoration: none; }
+.row__go { width: 20px; height: 20px; color: var(--ink-2); }
+@media (hover: hover) {
+  a.row:hover, button.row:hover { background: rgba(36, 96, 123, .06); }
+}
+
+/* ==========================================================================
+   Welcome
+   ========================================================================== */
+.welcome__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--safe-top) + 24px) 22px 16px;
+  scrollbar-width: none;
+}
+.welcome__scroll::-webkit-scrollbar { display: none; }
+
+.welcome__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.welcome__mark { width: 64px; height: 64px; color: var(--ink); }
+.welcome__word {
+  font-size: 14px;
+  letter-spacing: .34em;
+  padding-left: .34em;
+  color: var(--ink-2);
+}
+
+.welcome__title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -.015em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.welcome__lead {
+  max-width: 34ch;
+  margin: 12px auto 0;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+.welcome__update {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+  border-radius: var(--r-s);
+  background: var(--tide-soft);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.points { list-style: none; padding: 0; margin: 20px 0 18px; display: grid; gap: 10px; }
+.points li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.4; }
+.points .icon {
+  width: 26px;
+  height: 26px;
+  padding: 4px;
+  border-radius: 50%;
+  background: var(--tide-soft);
+  color: var(--tide);
+  stroke-width: 3;
+}
+.points span { padding-top: 2px; }
+
+.welcome__links .row { min-height: 56px; }
+
+.welcome__foot {
+  display: grid;
+  gap: 12px;
+  padding: 14px 20px calc(var(--safe-bottom) + 20px);
+  background: var(--fog);
+  border-top: 1px solid var(--mist);
+}
+.welcome__fine { font-size: 12.5px; line-height: 1.4; color: var(--ink-2); text-align: center; }
+
+.welcome.is-active .welcome__brand { animation: rise .6s var(--ease) .05s both; }
+.welcome.is-active .welcome__title,
+.welcome.is-active .welcome__lead  { animation: rise .6s var(--ease) .15s both; }
+.welcome.is-active .points,
+.welcome.is-active .welcome__links { animation: rise .6s var(--ease) .25s both; }
+
+@media (max-height: 680px) {
+  .welcome__scroll { padding-top: calc(var(--safe-top) + 14px); }
+  .welcome__brand { margin-bottom: 12px; gap: 8px; }
+  .welcome__mark { width: 48px; height: 48px; }
+  .welcome__title { font-size: 25px; }
+  .points { margin: 14px 0 12px; gap: 8px; }
+}
+
+/* ==========================================================================
+   Tutorial
+   ========================================================================== */
+.tut__bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: calc(var(--safe-top) + 14px) 16px 8px 20px;
+}
+.tut__title { flex: 1; font-size: 22px; font-weight: 800; letter-spacing: -.01em; }
+.tut__skip {
+  min-height: 48px;
+  padding: 0 18px;
+  border-radius: 14px;
+  background: var(--paper);
+  border: 1px solid var(--mist);
+  font-size: 15px;
+  font-weight: 700;
+  transition: transform .12s var(--ease), border-color .2s;
+}
+.tut__skip:active { transform: scale(.96); }
+@media (hover: hover) { .tut__skip:hover { border-color: var(--tide); } }
+
+.tut__steps { display: flex; gap: 8px; padding: 6px 20px 0; }
+.tut__steps span {
+  flex: 1;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--mist);
+  transition: background-color .3s;
+}
+.tut__steps .is-done { background: var(--tide); }
+.tut__steps .is-current { background: var(--saffron); }
+
+.tut__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 16px calc(var(--safe-bottom) + 20px);
+  container-type: size;
+}
+.tutorial .board { max-width: 100%; }
+.tutorial .arrow { outline: none; }
+.tutorial .arrow:focus-visible .arrow__line { stroke-width: 9; }
+
+.tut__coach {
+  margin: 16px 16px 0;
+  padding: 16px 18px;
+  min-height: 94px;
+  border-radius: var(--r-m);
+  background: var(--paper);
+  border: 1px solid var(--mist);
+}
+.tut__coach-title { font-size: 18px; font-weight: 800; letter-spacing: -.005em; }
+.tut__coach-body { margin-top: 4px; font-size: 15px; line-height: 1.4; color: var(--ink-2); }
+
+/* Teaching states on the arrows */
+.arrow.is-target { --c: var(--saffron); }
+.arrow.is-blocker { --c: var(--danger); }
+.arrow.is-target .arrow__line  { animation: tut-pulse 1.5s ease-in-out infinite; }
+.arrow.is-blocker .arrow__line { animation: tut-pulse .9s ease-in-out infinite; }
+@keyframes tut-pulse { 50% { stroke-width: 9.5; } }
+
+/* Success layer */
+.tut__done {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: calc(var(--safe-top) + 24px) 24px calc(var(--safe-bottom) + 24px);
+  background: var(--fog);
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .3s var(--ease), visibility 0s linear .3s;
+}
+.tut__done.is-on { opacity: 1; visibility: visible; transition-delay: 0s; }
+.tut__done-title { font-size: 30px; font-weight: 800; letter-spacing: -.015em; }
+.tut__done-sub { font-size: 17px; color: var(--ink-2); }
+.tut__done-btn { max-width: 320px; margin-top: 28px; }
+
+.tut__done.is-on .seal__disc  { animation: pop .5s var(--ease) both; }
+.tut__done.is-on .seal__ring  { animation: draw .8s var(--ease) .15s both; }
+.tut__done.is-on .seal__check { animation: draw .45s var(--ease) .5s both; }
+
+@media (max-height: 680px) {
+  .tut__coach { min-height: 84px; padding: 12px 16px; margin-top: 10px; }
+  .tut__coach-title { font-size: 16px; }
+}
